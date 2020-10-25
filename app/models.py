@@ -49,7 +49,7 @@ class Pitchy(db.Model):
     likes = db.relationship('Likes',backref = 'pitchy',lazy = 'dynamic')
     dislikes = db.relationship('Dislikes',backref = 'pitchy',lazy = 'dynamic')
     posted = db.Column(db.DateTime,default = datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     category = db.Column(db.String(255),index = True,nullable = False)
 
     def save_p(self):
@@ -64,7 +64,7 @@ class Likes(db.Model):
     __tablename__ = 'likes'
     id = db.Column(db.Integer,primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
     def save(self):
         db.session.add(self)
@@ -81,8 +81,8 @@ class Likes(db.Model):
 class Dislikes(db.Model):
     __tablename__ = 'dislikes'
     id = db.Column(db.Integer,primary_key = True)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
     def save(self):
         db.session.add(self)
@@ -100,8 +100,8 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer,primary_key = True)
     comment = db.Column(db.Text(),nullable = False)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
 
     def save(self):
         db.session.add(self)
