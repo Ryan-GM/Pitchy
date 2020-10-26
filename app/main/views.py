@@ -35,7 +35,7 @@ def updateprofile(name):
         return redirect(url_for('.profile',name = name))
     return render_template('profile/update.html',form =form)
 
-@main.route('create_new',methods = ['POST','GET'])
+@main.route('/create_new',methods = ['POST','GET'])
 @login_required
 def new_pitch():
     form = PitchyForm()
