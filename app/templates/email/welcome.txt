@@ -1,0 +1,5 @@
+Hello {{user.username}}
+Welcome to Pitch-It
+We would like to welcome you to the place where you can add all your pitches, get to comment 
+and even like or dislike on a pitch..
+Enjoy!!
