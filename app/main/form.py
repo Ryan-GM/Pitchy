@@ -4,7 +4,7 @@ from wtforms.validators import Required
 
 class PitchyForm(FlaskForm):
     title = StringField('Title',validators=[Required()])
-    post = TextAreaField('Pitch it', validators=[Required])
+    post = TextAreaField('Pitch it', validators=[Required()])
     category = SelectField('Category',choices=[('Cheesy','Cheesy'),('Life','Life','Funny','Funny')],validators=[Required()])
     submit = SubmitField('Pitchy')
 
