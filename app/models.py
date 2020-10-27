@@ -6,9 +6,9 @@ from datetime import datetime
 class User(db.Model,UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(255),unique = True,nullable = False)
-    email = db.Column(db.String(255),unique = True, nullable = False)
-    secure_password = db.Column(db.String(255),unique = True,nullable = False)
+    username = db.Column(db.String(255),nullable = False)
+    email = db.Column(db.String(255),nullable = False)
+    secure_password = db.Column(db.String(255),nullable = False)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String(255))
     pitchy = db.relationship('Pitchy',backref = 'user',lazy = 'dynamic')
@@ -63,8 +63,8 @@ class Pitchy(db.Model):
 class Likes(db.Model):
     __tablename__ = 'likes'
     id = db.Column(db.Integer,primary_key = True)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
 
     def save(self):
         db.session.add(self)
@@ -82,7 +82,7 @@ class Dislikes(db.Model):
     __tablename__ = 'dislikes'
     id = db.Column(db.Integer,primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
 
     def save(self):
         db.session.add(self)
@@ -101,7 +101,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     comment = db.Column(db.Text(),nullable = False)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    pitchy_id = db.Column(db.Integer,db.ForeignKey('pitchy.id'))
 
     def save(self):
         db.session.add(self)
