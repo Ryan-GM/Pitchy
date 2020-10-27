@@ -7,11 +7,11 @@ from .form import PitchyForm,UpdateProfile,CommentForm
 
 @main.route('/')
 def index():
-    pitches = Pitchy.query.all()
+    pitchy = Pitchy.query.all()
     funny = Pitchy.query.filter_by(category = 'Funny').all()
     cheesy = Pitchy.query.filter_by(category = 'Cheesy').all()
     life = Pitchy.query.filter_by(category = 'Life').all()
-    return render_template('index.html', pitch = pitches, funny = funny,life = life,cheesy = cheesy)
+    return render_template('index.html', pitch = pitchy, funny = funny,life = life,cheesy = cheesy)
 
 @main.route('/user/<name>')
 def profile(name):
@@ -47,7 +47,7 @@ def new_pitch():
         new_pitch_object = Pitchy(post = post,user_id = current_user._get_current_object().id,category = category,title = title)
         new_pitch_object.save_p()
         return redirect(url_for('main.index'))
-    return render_template('create_pitchy.html',form =form)
+    return render_template('pitchy.html',form =form)
 
 @main.route('/comment/<int:pitchy_id>',methods = ['POST','GET'])
 @login_required
@@ -62,7 +62,7 @@ def comment(pitchy_id):
         new_comment = Comment(comment = comment,user_id = user_id,pitchy_id = pitchy_id)
         new_comment.save_c()
         return redirect(url_for('.comment',pitchy_id = pitchy_id))
-    return render_template('comment.html',form = form,pitch = pitchy,all_comments = all_comments) 
+    return render_template('commento.html',form = form,pitch = pitchy,all_comments = all_comments) 
 
 @main.route('/user/<name>/update/pic',methods= ['POST'])
 @login_required
